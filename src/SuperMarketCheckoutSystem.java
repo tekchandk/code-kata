@@ -7,9 +7,9 @@ import org.junit.runner.notification.Failure;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SuperMarketCheckoutSystem {
+public class SuperMarketCheckoutSystem implements PriceContract {
 
-    public static int getTotalPrice(String[] itemNames) {
+    public int getTotalPrice(String[] itemNames) {
         Map<String, Integer> itemWithCount = new HashMap<>();
         int totalPrice = 0;
 
@@ -35,13 +35,13 @@ public class SuperMarketCheckoutSystem {
         return totalPrice;
     }
 
-    private static int getPriceWithOffer(int checkoutQuantityProduct, Product product) {
+    public int getPriceWithOffer(int checkoutQuantityProduct, Product product) {
         if(product.getOffer() == null)
             return 0;
         return (checkoutQuantityProduct / product.getOffer().getQuantity()) * (product.getOffer().getPriceWithOffer());
     }
 
-    private static int getPriceWithoutOffer(int checkoutQuantityProduct, Product product) {
+    public int getPriceWithoutOffer(int checkoutQuantityProduct, Product product) {
         if(product.getOffer() == null)
             return checkoutQuantityProduct * product.getUnitPrice();
         return (checkoutQuantityProduct % product.getOffer().getQuantity()) * (product.getUnitPrice());
